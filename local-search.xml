@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>mysql</title>
+    <link href="/2022/03/26/mysql/"/>
+    <url>/2022/03/26/mysql/</url>
+    
+    <content type="html"><![CDATA[<p>mysql<br>总结:常用数据类型<br>分类 备注和说明 数据类型 说明<br>二进制数据类型 存储非子符和文本的数据 BLOB 可用来存储图像<br>文本数据类型 字符数据包括任意字母、符 char 固定长度的非 Unicode字符数据<br>号或数字字符的组合 varchar 可变长度非Unicode数据<br>text 存储长文本信息<br>日期和时间 日期和时间在单引号内输入 time 时间<br>date 日期<br>datetime 日期和时间<br>数值型数据 该数据仅包含数字，包括正 int 整数<br>数、负数以及浮点数 smallint<br>float 浮点数<br>double</p><p>数值列类型<br>·所有数值列类型的类型名及其说明和所占的字节数见下表<br>类型名 说明 类型名 说明<br>TINYINT 非常小的整数 BIGINT 大整数<br>SMALLINT 较小的整数 FLOAT 单精度浮点数<br>MEDIUMINT 中等大小的整数 DOUBLE 双精度浮点数<br>INT 标准整数 DECIMAL 一个串的浮点数</p><p>update test_table set name&#x3D;”dss” where name&#x3D;”dcl”;<br>delete from test_table where address2&gt;77;<br>insert into test_table(name,address2) values(“sss”,152436),(“sss”,55),(“sss”,77)<br>查询语句<br>SELECT〈&lt;列名&gt;FROM&lt;表名&gt;[WHERE&lt;查询条件表达式&gt;][ORDER BY&lt;排序的列名&gt;[ASC或DESC]</p><p>PHP访问MySQL数据库的流程第一步:连接MySQL服务器<br>·使用mysql connect)函数建立与MySQL服务器的连接第二步:选择MySQL数据库<br>·使用mysql_select db)函数选择MySQL数据库服务器上的数据库，并与数据库建立连接第三步:执行SQL语句<br>·在选择的数据库中使用mysql query)函数执行SQL语句。对数据的操作方式主要包括4种方式:<br>数据操作 说明<br>查询数据 使用select语句实现数据的查询功能<br>插入数据 使用insert into语句向数据库中插入数据<br>更新数据 使用update语句修改数据库中的记录<br>删除数据 使用delete语句删除数据库中的记录</p><p>PHP代码<br>连接数据库服务器 mysql_connect函数!<br>选择数据库 mysql_select_db函数;<br>操作表(查询&#x2F;插入&#x2F;修改&#x2F;删除 含SQL语句的mysql_query函数<br>返回操作结果 mysql_fetch_array函数+edho等<br>关闭数据库连接 mysql_close函数</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>渗透测试插件</title>
     <link href="/2022/03/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6/"/>
     <url>/2022/03/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6/</url>
