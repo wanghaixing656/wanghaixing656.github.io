@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>第一篇</title>
+    <link href="/2022/03/26/Linux/"/>
+    <url>/2022/03/26/Linux/</url>
+    
+    <content type="html"><![CDATA[<p>&#x2F;etc&#x2F;passwad 存储当前系统中所有的用户的信息（密码除外）<br>&#x2F;etc&#x2F;shadow 存储当前系统中所有的用户的密码信息<br>ls -l 查看文件权限 （r读w写x执行）</p><p>◆显示、 设置文件的默认权限<br>[root@localhost ~]# umask [-S] #显示、设置文件的默认权限<br>➢参数说明: -S以rwx形式显示新建文件的默认权限<br>➢命令说明:<br>●对于windows而言，默认权限是从上级目录继承而来的，而linux则是通过umask权限设定的<br>， 如果用户建立文件，默认是没有可执行权限的,即权限表示为- rw-rw-rw-，即666<br>●如果用户建立目录,默认权限是全开放的，即权限表示drwxrwxrwx.即777<br>●umask的值 ，默认为022，就是需要减掉的权限，比如:<br>建立文件时, 666-022 &#x3D;&#x3D; 644 ,即r—-<br>建立目录时, 777-022&#x3D;&#x3D;755 ,即drx.-xr-x<br>●这就是为什么我们在没有设置umask值时，默认创建的文件和目录权限分别为644和755了</p><p>. 文件权限分别为:读(read)，写(write)，执行x(execute)，简写即为(r,w,x) ，也可以可用数字来(4,2,1)表示，-即无权限</p><p>root账户不受文件权限的读写限制，执行权限受限制<br>用户获取文件权限的顺序:先看是否为所有者，如果是，则后面权限不看;再看是否为所属组，如果是，则后面权限不看<br>缺省创建的文件不可授予可执行的权限，基于最基本的安全机制，防止病毒等<br>test@ubuntu:~$ curL file:&#x2F; &#x2F; &#x2F;home&#x2F;test&#x2F;Desktop&#x2F;baidu. txt（可以代替cat命令实现弯道访问）</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>PHP</title>
     <link href="/2022/03/26/PHP/"/>
     <url>/2022/03/26/PHP/</url>
