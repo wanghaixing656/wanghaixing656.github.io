@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>应急响应</title>
+    <link href="/2022/05/26/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    <url>/2022/05/26/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
+    
+    <content type="html"><![CDATA[<p>windows应急响应：1.进程分析：在任务管理中，或者火绒剑等安全软件中查看，cpu内存资源查看 systeminfo<br>2.启动项：任务管理器中启动键下<br>3.计划任务：控制面板-&gt;系统和安全-&gt;管理工具下有计划任务<br>4.网络排查：cmd中 netstat -noe 通过网络找进程，通过进程找文件打开任务管理器使用Ctrl+Alt+delete或者在windows下面状态栏右键选择任务管理器打开，通过点击详细信息，pid排序找到要找的pid来关闭恶意程序。<br>5.样本识别网站：<a href="http://www.virscan.org/">www.virscan.org</a> 微步云沙箱 D盾（webshell查杀工具）<br>6.日志分析：<br>·系统日志：事件查看器：4624登陆成功 4625登陆失败 4634注销成功 4672超级管理员登录 4720创建用户 登录类型 2-交互登录 3-网络登录 10-远程登录</p><p>·web日志：1.外部暴力脆弱网站 2.植入后门 3.提权 4.权限维持 5.控制主机，内网扫描<br>apache日志：access.log<br>7.系统账号：net user</p><p>Linux应急响应：1.进程分析：ps -aux lsof -p pid号 lsof -i @localhost:20,80 -r3 监听端口<br>2.端口：netstat -pantu 展示所有tcp,udp活跃的ip和端口号<br>3.后门排查：find 路径 -name “.php”|xargs eprep ‘eval’<br>4.文件路径：ls -l &#x2F;proc&#x2F;pid号&#x2F;exe 查询具体文件在什么位置<br>5.系统命令：history<br>6.工具查杀：河马 深信服-webshellkiller openrasp<br>7.日志分析：系统日志 在&#x2F;var&#x2F;log&#x2F;下 主要关注grep “useradd” &#x2F;var&#x2F;log&#x2F;secure(找到增加用户的日志) grep “userdel” &#x2F;var&#x2F;log&#x2F;secure(找到删除用户的日志) grep “Failed password for root” &#x2F;var&#x2F;log&#x2F;secure(登录用户失败日志)<br>web日志<br>8.敏感文件：用户文件&#x2F;etc&#x2F;passwd 密码文件&#x2F;etc&#x2F;shadow 计划任务文件&#x2F;etc&#x2F;crontab ls &#x2F;etc&#x2F;corn.<br>9.查看系统服务：chkconfig –list</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>xss-labs1-12关</title>
     <link href="/2022/04/22/xss-labs1-12%E5%85%B3/"/>
     <url>/2022/04/22/xss-labs1-12%E5%85%B3/</url>
